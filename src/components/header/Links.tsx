@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles,InputBase, fade } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
       search: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const Links = () => {
+    const history = useHistory();
     const classes = useStyles();
 
     return (
@@ -63,11 +65,11 @@ const Links = () => {
             </div>
           </Grid>
           <Grid item xs={6}>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">Projects</Button>
-            <Button color="inherit">Experiences</Button>
-            <Button color="inherit">Education</Button>
-            <Button color="inherit">Contact me</Button>
+            <Button color="inherit" onClick={()=> history.push('/')}>Home</Button>
+            <Button color="inherit" onClick={()=> history.push('/projects')}>Projects</Button>
+            <Button color="inherit" onClick={()=> history.push('/experiences')}>Experiences</Button>
+            <Button color="inherit" onClick={()=> history.push('/education')}>Education</Button>
+            <Button color="inherit" onClick={()=> history.push('/contact')}>Contact me</Button>
           </Grid>
         </Grid>
     )

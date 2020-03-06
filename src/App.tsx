@@ -1,9 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import clsx from 'clsx';
 import './App.css';
 import Header from './components/layout/Header';
-import { makeStyles, CssBaseline } from '@material-ui/core';
+import { makeStyles, CssBaseline, Slide } from '@material-ui/core';
 import Sidebar from './components/layout/Sidebar';
-import Container from './components/layout/Container';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import ProjectsList from './components/projects/ProjectsList';
+import ExperiencesList from './components/experiences/ExperiencesList';
+import EducationList from './components/Education/EducationList';
+import ContactMe from './components/ContactMe/ContactMe';
 
 
 const drawerWidth = 240;
@@ -31,21 +38,51 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
 }))
 
 
 
-function App() {
+function App(props: any) {
   const classes = useStyles();
-  
+  const open = props.open
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <Header />
-      <Sidebar />
-      <Container />
+      <BrowserRouter >
+        <CssBaseline />
+        <Header />
+        <Sidebar />
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          
+            <Switch >
+                <Route exact path='/' component={Home} />
+                <Route exact path='/projects' component={ProjectsList} />
+                <Route exact path='/experiences' component={ExperiencesList} />
+                <Route exact path='/education' component={EducationList} />
+                <Route exact path='/contact' component={ContactMe} />
+            </Switch>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps= (state: any) => {
+  //console.log(state)
+  return {
+      open: state.header.sidebarOpen
+  }
+}
+
+export default connect(mapStateToProps)(App)
