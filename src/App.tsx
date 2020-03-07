@@ -11,6 +11,7 @@ import ProjectsList from './components/projects/ProjectsList';
 import ExperiencesList from './components/experiences/ExperiencesList';
 import EducationList from './components/Education/EducationList';
 import ContactMe from './components/ContactMe/ContactMe';
+import Experience from './components/experiences/Experience';
 
 
 const drawerWidth = 240;
@@ -70,6 +71,7 @@ function App(props: any) {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/projects' component={ProjectsList} />
                 <Route exact path='/experiences' component={ExperiencesList} />
+                <Route exact path='/experience/:id' component={Experience} />
                 <Route exact path='/education' component={EducationList} />
                 <Route exact path='/contact' component={ContactMe} />
             </Switch>
