@@ -37,11 +37,25 @@ const initialState = {
           job: 'Ingénieur fullstack React/Laravel',
           img: LearCorporationLogo 
         }
-      ]
+      ],
+      addModalOpen: false
 }
 
 const ExperienceReducer = (state = initialState, action: any) => {
-    return state
+    switch (action.type) {
+      case 'OPEN_ADD_MODAL':
+        return {
+          ...state,
+          addModalOpen: true
+        }
+      case 'CLOSE_ADD_MODAL':
+          return {
+            ...state,
+            addModalOpen: false
+          }
+      default:
+        return state;
+    }
 }
 
 export default ExperienceReducer

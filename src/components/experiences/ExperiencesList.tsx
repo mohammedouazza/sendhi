@@ -1,10 +1,8 @@
 import React from 'react'
-import { Slide, GridList, makeStyles, GridListTile, GridListTileBar, IconButton } from '@material-ui/core'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Projects from '../home/Projects';
-import InfoIcon from '@material-ui/icons/Info';
+import { Slide, GridList, makeStyles, GridListTile, GridListTileBar } from '@material-ui/core'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AddExperience from './AddExperience';
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -25,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     icon: {
       color: 'rgba(255, 255, 255, 0.54)',
     },
+    
   }));
   
 
@@ -34,27 +33,33 @@ const ExperiencesList = (props: any) => {
     console.log(experiences, props)
     return (
         <Slide direction="right" in={true} mountOnEnter unmountOnExit>
-            <GridList className={classes.gridList} cols={1} cellHeight="auto" >
-                { experiences && experiences.map((experience: any) => (
-                    <Link to={'experience/'+experience.key}>
-                        <GridListTile key={experience.key} cols={1}>
-                            
-                            <img src={experience.img} alt={experience.title} width="100%" height="100%"/>
-                            <GridListTileBar
-                            title={<div className="text-center">{experience.title}</div> }
-                            subtitle={<span>{experience.job}</span>}
-                            className={classes.titleBar}
-                            />
-                            
-                        </GridListTile>
-                    </Link>
-                ))}
-            </GridList>
+            <div>
+              
+              <AddExperience />
+              
+              <GridList className={classes.gridList} cols={1} cellHeight="auto" >
+                  { experiences && experiences.map((experience: any) => (
+                      <Link to={'experience/'+experience.key} key={experience.key}>
+                          <GridListTile  cols={1}>
+                              
+                              <img src={experience.img} alt={experience.title} width="100%" height="100%"/>
+                              <GridListTileBar
+                              title={<div className="text-center">{experience.title}</div> }
+                              subtitle={<span>{experience.job}</span>}
+                              className={classes.titleBar}
+                              />
+                              
+                          </GridListTile>
+                      </Link>
+                  ))}
+              </GridList>
+            </div>
         </Slide>
     )
 }
 
 const mapStateToProps = (state: any) => {
+  console.log(state)
     return {
         experiences: state.experience.experiences
     }
