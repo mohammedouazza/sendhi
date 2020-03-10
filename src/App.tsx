@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import clsx from 'clsx';
 import './App.css';
 import Header from './components/layout/Header';
-import { makeStyles, CssBaseline, Slide } from '@material-ui/core';
+import { makeStyles, CssBaseline } from '@material-ui/core';
 import Sidebar from './components/layout/Sidebar';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/home/Home';
@@ -18,6 +18,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
   },
   container: {
     marginTop: 64,
