@@ -38,7 +38,9 @@ const initialState = {
           img: LearCorporationLogo 
         }
       ],
-      addModalOpen: false
+      addModalOpen: false,
+      progress: 0,
+
 }
 
 const ExperienceReducer = (state = initialState, action: any) => {
@@ -53,6 +55,32 @@ const ExperienceReducer = (state = initialState, action: any) => {
             ...state,
             addModalOpen: false
           }
+      case 'UPLOAD_LOGO_EXP_PROGRESS':
+        return {
+          ...state,
+          progressPer: action.percentage
+        }
+      case 'UPLOAD_LOGO_EXP_ERROR':
+        return {
+          ...state,
+          uploadError: action.err
+        }
+      case 'UPLOAD_LOGO_EXP_SUCCESS':
+        return {
+          ...state,
+          uploadError: null,
+          uploadSuccess: true
+        }
+      case 'ADD_EXPERIENCE_ERROR':
+        return {
+          ...state,
+          addExpError: true,
+        }
+      case 'ADD_EXPERIENCE_SUCCESS':
+        return {
+          ...state,
+          addExpError: false,
+        }
       default:
         return state;
     }
