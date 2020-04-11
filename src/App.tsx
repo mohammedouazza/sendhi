@@ -11,6 +11,9 @@ import ProjectsList from './components/projects/ProjectsList';
 import ExperiencesList from './components/experiences/ExperiencesList';
 import EducationList from './components/Education/EducationList';
 import ContactMe from './components/ContactMe/ContactMe';
+import Experience from './components/experiences/Experience';
+import NewProject from './components/projects/NewProject';
+import SingleProject from './components/projects/SingleProject';
 
 
 const drawerWidth = 240;
@@ -18,7 +21,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)"
+    background: "#cfd1d1"
   },
   container: {
     marginTop: 64,
@@ -41,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
   drawerHeader: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'justify',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
@@ -69,7 +72,10 @@ function App(props: any) {
             <Switch >
                 <Route exact path='/' component={Home} />
                 <Route exact path='/projects' component={ProjectsList} />
+                <Route exact path='/projects/create' component={NewProject} />
+                <Route exact path='/projects/:id' component={SingleProject} />
                 <Route exact path='/experiences' component={ExperiencesList} />
+                <Route exact path='/experience/:id' component={Experience} />
                 <Route exact path='/education' component={EducationList} />
                 <Route exact path='/contact' component={ContactMe} />
             </Switch>

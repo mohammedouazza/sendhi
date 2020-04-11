@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { makeStyles, AppBar, Toolbar, IconButton, Typography, useScrollTrigger, Slide } from '@material-ui/core';
 import clsx from 'clsx';
@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { ToggleSidebar } from '../../store/actions/HeaderActions';
 import Links from '../header/Links'
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -56,7 +57,14 @@ const HideOnScroll = (props: any) => {
 
 const Header = (props: any) => {
     const classes = useStyles();
-    
+    const history = useHistory();
+    let initialMobile = true 
+    if(window.innerWidth > 1100) {
+      initialMobile = false
+    }
+
+    const mobile = useWindowResize(initialMobile)
+
     const handleDrawerOpen = () => {
         //console.log('open')
         props.toggleSidebar();
@@ -73,7 +81,7 @@ const Header = (props: any) => {
                 })}
             >
                 <Toolbar>
-                <IconButton
+                {mobile && <IconButton
                     color="inherit"
                     aria-label="open drawer"
                     onClick={handleDrawerOpen}
@@ -81,19 +89,41 @@ const Header = (props: any) => {
                     edge="start"
                 >
                     <MenuIcon />
-                </IconButton>
-                <Grid item xs={2}>
-                  <Typography variant="h6" >
+                </IconButton> }
+                <Grid item xs={mobile ? 12 : 3}>
+                  <Typography variant="h6" onClick={()=> history.push('/')}>
                       Mohammed OUAZZA
                   </Typography>
                 </Grid>
-                <Links />
+                { !mobile && <Links /> }
                 </Toolbar>
             </AppBar>
         </HideOnScroll>
     )
 }
 
+const useWindowResize = (initialMobile: any) => {
+  const [mobile, setMobile] = useState(initialMobile)
+
+  const windowResize = () => {
+    const windowWidth = window.innerWidth
+    if(windowWidth > 1100) {
+      setMobile(false)
+    } else {
+      setMobile(true)
+    }
+    
+  }
+  useEffect(() => {
+    window.addEventListener('resize', windowResize)
+
+    return () => {
+      window.removeEventListener('resize', windowResize)
+    }
+  })
+
+  return mobile
+}
 const mapStateToProps = (state: any) => {
     return {
         open: state.header.sidebarOpen

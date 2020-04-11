@@ -49,7 +49,7 @@ const Links = () => {
 
     return (
       <Grid container spacing={2} justify="flex-end">
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
               <SearchIcon />
@@ -64,7 +64,7 @@ const Links = () => {
                   />
             </div>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Button color="inherit" onClick={()=> history.push('/')}>Home</Button>
             <Button color="inherit" onClick={()=> history.push('/projects')}>Projects</Button>
             <Button color="inherit" onClick={()=> history.push('/experiences')}>Experiences</Button>

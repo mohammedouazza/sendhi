@@ -1,5 +1,5 @@
 const initialState = {
-    sidebarOpen: true
+    sidebarOpen: false
 }
 
 const HeaderReducer = (state = initialState, action: any) => {
