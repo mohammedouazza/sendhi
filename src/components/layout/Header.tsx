@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { ToggleSidebar } from '../../store/actions/HeaderActions';
 import Links from '../header/Links'
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ const HideOnScroll = (props: any) => {
 
 const Header = (props: any) => {
     const classes = useStyles();
+    const history = useHistory();
     let initialMobile = true 
     if(window.innerWidth > 1100) {
       initialMobile = false
@@ -89,7 +91,7 @@ const Header = (props: any) => {
                     <MenuIcon />
                 </IconButton> }
                 <Grid item xs={mobile ? 12 : 3}>
-                  <Typography variant="h6" >
+                  <Typography variant="h6" onClick={()=> history.push('/')}>
                       Mohammed OUAZZA
                   </Typography>
                 </Grid>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Slide, GridList, makeStyles, GridListTile, GridListTileBar, IconButton } from '@material-ui/core'
+import { Slide, GridList, makeStyles, GridListTile, GridListTileBar, IconButton, Button } from '@material-ui/core'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Projects from '../home/Projects';
 import AdservioLogo from '../../img/adservio.png'
@@ -7,6 +7,9 @@ import FreelanceLogo from '../../img/freelance.jpg'
 import DigitalNomadeLogo from '../../img/digital_nomade.png'
 import LearCorporationLogo from '../../img/lear_corporation.png'
 import InfoIcon from '@material-ui/icons/Info';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { EditProject, GetProject } from '../../store/actions/ProjectActions'
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -29,59 +32,50 @@ const useStyles = makeStyles(theme => ({
     },
   }));
   
-let projects = [
-  {
-    key: 1,
-    title: 'Adserio Maroc',
-    from: 'Septembre 2019',
-    to: 'En cours...',
-    job: 'Ingénieur fullstack React/Laravel',
-    img: AdservioLogo 
-  },
-  {
-    key: 2,
-    title: 'Consultant indépendant, Maroc',
-    from: 'Novembre 2018',
-    to: 'Septembre 2019',
-    job: 'Ingénieur Laravel',
-    img: FreelanceLogo 
-  },
-  {
-    key: 3,
-    title: 'Digital Nomade SARL, France',
-    from: 'Avril 2018',
-    to: 'Octobre 2018',
-    job: 'Stage PFE, Ingénieur Laravel',
-    img: DigitalNomadeLogo 
-  },
-  {
-    key: 4,
-    title: 'Lear Corporation, Maroc',
-    from: 'Septembre 2019',
-    to: 'En cours...',
-    job: 'Ingénieur fullstack React/Laravel',
-    img: LearCorporationLogo 
-  }
-]
 const ProjectsList = (props: any) => {
     const classes = useStyles();
-
+    const { projects } = props
     return (
         <Slide direction="right" in={true} mountOnEnter unmountOnExit>
+          <div>
+
+            <Link to="/projects/create" className="btn btn-primary mb-2" >Add project</Link>
+            
             <GridList className={classes.gridList} cols={1} cellHeight="auto" >
-                { projects.map(project => (
-                  <GridListTile key={project.key} cols={1}>
-                    <img src={project.img} alt={project.title} width="60%" height="60%"/>
-                    <GridListTileBar
-                      title={<div className="text-center">{project.title}</div> }
-                      subtitle={<span>{project.job}</span>}
-                      className={classes.titleBar}
-                    />
-                  </GridListTile>
+            
+                { projects && projects.map((project: any, index: number) => (
+                  <Link to={'projects/'+index} key={index} onClick={props.getProject(index)}>
+                    <GridListTile cols={1}>
+                     
+                      <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                        <div className="col-md-5 p-lg-5 mx-auto my-5">
+                          <h1 className="display-4 font-weight-normal">{project.title}</h1>
+                          <p className="lead font-weight-normal">{project.description}</p>
+                        </div>
+                        <div className="product-device shadow-sm d-none d-md-block">
+                          <img src={FreelanceLogo} alt={project.title} width="60%" height="60%"/>
+                        </div>
+                        <div className="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+                      </div>
+                    </GridListTile>
+                  </Link>
                 ))}
             </GridList>
+            </div>
         </Slide>
     )
 }
 
-export default ProjectsList
+const mapStateToProps = (state: any) => {
+  return {
+    projects: state.project.projects
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+      getProject: (index: number) => dispatch(GetProject(index))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)

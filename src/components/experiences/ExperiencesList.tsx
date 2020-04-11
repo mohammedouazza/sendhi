@@ -41,13 +41,17 @@ const ExperiencesList = (props: any) => {
                   { experiences && experiences.map((experience: any) => (
                       <Link to={'experience/'+experience.key} key={experience.key}>
                           <GridListTile  cols={1}>
-                              
-                              <img src={experience.img} alt={experience.title} width="100%" height="100%"/>
-                              <GridListTileBar
-                              title={<div className="text-center">{experience.title}</div> }
-                              subtitle={<span>{experience.job}</span>}
-                              className={classes.titleBar}
-                              />
+                          <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                            <div className="col-md-5 p-lg-5 mx-auto my-5">
+                              <h1 className="display-4 font-weight-normal">{experience.title}</h1>
+                              <p className="lead font-weight-normal">{experience.job}</p>
+                            </div>
+                            <div className="product-device shadow-sm d-none d-md-block">
+                              <img src={experience.img} alt={experience.title} width="60%" height="60%"/>
+                            </div>
+                            <div className="product-device product-device-2 shadow-sm d-none d-md-block">
+                            </div>
+                          </div>
                               
                           </GridListTile>
                       </Link>
